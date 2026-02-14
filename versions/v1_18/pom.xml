@@ -7,11 +7,11 @@
     <parent>
         <groupId>io.legomaniac.fileutil</groupId>
         <artifactId>LMFileUtil-Versions</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>LMFileUtil-1-18</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>LMFileUtil 1.18</name>
 
@@ -19,13 +19,33 @@
         <dependency>
             <groupId>io.legomaniac.fileutil</groupId>
             <artifactId>LMFileUtil-Core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
     <build>
         <directory>${project.basedir}/target</directory>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>strip-snapshot</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>regex-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>release.version</name>
+                            <value>${project.version}</value>
+                            <regex>-SNAPSHOT</regex>
+                            <replacement></replacement>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -47,6 +67,8 @@
                                     </excludes>
                                 </filter>
                             </filters>
+                            <outputDirectory>${project.basedir}../../../builds</outputDirectory>
+                            <finalName>LMFileUtil-${display.version}-1.18</finalName>
                         </configuration>
                     </execution>
                 </executions>

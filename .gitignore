@@ -1,5 +1,6 @@
 .idea/
 target/
+builds/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

@@ -285,7 +285,7 @@ public abstract class ConfigFile {
         // Quoted String
         String value = raw;
         boolean hadQuotes = false;
-        if((raw.startsWith("\"") && raw.equals("\"")) || (raw.startsWith("'") && raw.endsWith("'"))){
+        if((raw.startsWith("\"") && raw.endsWith("\"")) || (raw.startsWith("'") && raw.endsWith("'"))){
             value = raw.substring(1, raw.length() - 1).strip();
             hadQuotes = true;
         }
@@ -376,7 +376,7 @@ public abstract class ConfigFile {
                             String peekLine = peekRaw.strip();
 
                             // Removes any comments after the value, as they are unnecessary and will create conflicts
-                            peekLine = peekLine.substring(0, peekLine.indexOf("#"));
+                            if(peekLine.contains("#")) peekLine = peekLine.substring(0, peekLine.indexOf("#"));
                             int peekIndent = peekRaw.indexOf(peekLine);
                             if(peekIndent <= indent) break;
                             if(!peekLine.startsWith("- ")) break;

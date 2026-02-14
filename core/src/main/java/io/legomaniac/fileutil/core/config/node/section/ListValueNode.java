@@ -31,7 +31,7 @@ public final class ListValueNode extends ValueNode {
     @Override
     public void write(StringBuilder out, int indent){
         if(out==null) return;
-        out.append(" ".repeat(indent));
+        out.append(" ".repeat(indent)).append("- ");
         if(value instanceof BigDecimal bd){
             out.append(bd);
         } else if(value instanceof Integer i){
@@ -40,8 +40,11 @@ public final class ListValueNode extends ValueNode {
             out.append(l);
         } else if(value instanceof Double d){
             out.append(d);
-        } else if(value instanceof Enum<?> || value instanceof String){
+        } else if(value instanceof Enum<?>){
             out.append(value);
+        } else if(value instanceof String){
+            String withQuotes = "\"" + value + "\"";
+            out.append(withQuotes);
         }
         out.append("\n");
     }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * This node contains a {@link List} of {@link ListSectionNode}s. The object type of every node must match, which means
@@ -113,7 +114,7 @@ public final class ListSectionNode extends SectionNode {
                     }
                 })
                 .filter(Objects::nonNull) // Again filter for null objects
-                .toList(); // Return the stream as a list of type T.
+                .collect(Collectors.toList()); // Return the stream as a list of type T.
     }
 
     /**
